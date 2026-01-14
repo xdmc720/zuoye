@@ -129,8 +129,9 @@ export default {
   /**
    * 声明组件可发出的事件
    * show-toast: 显示提示消息
+   * update-theme: 更新主题
    */
-  emits: ['show-toast'],
+  emits: ['show-toast', 'update-theme'],
   
   /**
    * 计算属性 - 自动追踪依赖，响应式更新
@@ -161,15 +162,14 @@ export default {
      * 设置主题
      * 
      * 演示组件通信方式：
-     * 1. this.$parent.theme 直接修改父组件数据
+     * 1. this.$emit 发送事件给父组件更新主题
      * 2. localStorage 持久化到浏览器
-     * 3. this.$emit 发送事件给父组件
      * 
      * @param {string} newTheme - 'dark' 或 'light'
      */
     setTheme(newTheme) {
-      // 直接修改父组件的 theme 属性
-      this.$parent.theme = newTheme
+      // 通过事件通知父组件更新主题
+      this.$emit('update-theme', newTheme)
       
       // 保存到浏览器本地存储，下次访问时保持设置
       localStorage.setItem('nav_theme', newTheme)
