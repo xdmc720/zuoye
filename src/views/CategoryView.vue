@@ -145,5 +145,13 @@ scoped 属性说明：
 
 .back-btn:hover {
   background: var(--accent);
+  color: white;
+}
+
+/* ☀️ 浅色主题适配 */
+:deep([data-theme="light"]) .back-btn,
+[data-theme="light"] .back-btn {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
