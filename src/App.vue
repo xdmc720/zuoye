@@ -78,7 +78,7 @@
       :theme 传递主题给子组件
       @show-toast 监听子组件事件
     -->
-    <router-view :categories="categories" :theme="theme" @show-toast="showToast" />
+    <router-view :categories="categories" :theme="theme" @show-toast="showToast" @update-theme="setTheme" />
 
     <!-- ==================== 底部 Dock 工具栏 ==================== -->
     <div class="dock">
@@ -147,12 +147,32 @@ export default {
     else if (window.matchMedia?.('(prefers-color-scheme: light)').matches) {
       this.theme = 'light'
     }
+    // 同步主题到 html 根元素
+    this.syncThemeToDocument()
+  },
+  
+  /**
+   * watch - 监听数据变化
+   */
+  watch: {
+    // 监听主题变化，同步到 html 元素
+    theme(newTheme) {
+      this.syncThemeToDocument()
+    }
   },
   
   /**
    * methods - 组件方法
    */
   methods: {
+    /**
+     * 将主题同步到 html 根元素
+     * 这样 CSS [data-theme] 选择器可以正确匹配
+     */
+    syncThemeToDocument() {
+      document.documentElement.setAttribute('data-theme', this.theme)
+    },
+    
     /**
      * 切换主题
      * 在深色和浅色模式之间切换
@@ -168,6 +188,15 @@ export default {
       this.showToast(
         this.theme === 'light' ? '☀️ 已切换到浅色模式' : '🌙 已切换到深色模式'
       )
+    },
+    
+    /**
+     * 设置主题（供子组件调用）
+     * 
+     * @param {string} newTheme - 'dark' 或 'light'
+     */
+    setTheme(newTheme) {
+      this.theme = newTheme
     },
     
     /**
