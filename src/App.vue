@@ -149,6 +149,9 @@ export default {
     }
     // 同步主题到 html 根元素
     this.syncThemeToDocument()
+    
+    // Live2D 看板娘点击展开/收起效果
+    this.initWaifuToggle()
   },
   
   /**
@@ -171,6 +174,22 @@ export default {
      */
     syncThemeToDocument() {
       document.documentElement.setAttribute('data-theme', this.theme)
+    },
+    
+    /**
+     * 初始化 Live2D 看板娘的展开/收起功能
+     * 点击看板娘区域切换 waifu-active 类
+     */
+    initWaifuToggle() {
+      // 延迟执行，等待 Live2D 脚本加载完成
+      setTimeout(() => {
+        const waifu = document.getElementById('waifu')
+        if (waifu) {
+          waifu.addEventListener('click', () => {
+            waifu.classList.toggle('waifu-active')
+          })
+        }
+      }, 2000)  // 等待2秒让 Live2D 加载
     },
     
     /**
