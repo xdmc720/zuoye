@@ -551,43 +551,55 @@ a.router-link-active.nav-item {
 
 /* ========================================
  * Live2D 看板娘自定义样式
+ * 
+ * 交互效果：默认收起，点击展开
  * ======================================== */
 #waifu {
   position: fixed !important;
-  right: -30px !important;
-  /* 更贴近右侧边缘 */
+  right: 0 !important;
   left: auto !important;
   bottom: 60px !important;
-  /* 在 Dock 上方 */
   z-index: 50;
-  transform: scale(0.5);
-  /* 缩小到50% */
+  transform: scale(0.3) translateX(60%);
+  /* 默认收起状态：小的，大部分在屏幕外 */
   transform-origin: right bottom;
   pointer-events: auto;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  cursor: pointer;
+}
+
+/* 鼠标悬停时稍微展示更多 */
+#waifu:hover {
+  transform: scale(0.4) translateX(30%);
+}
+
+/* 展开状态（通过 JS 添加 .active 类） */
+#waifu.waifu-active {
+  transform: scale(0.6) translateX(0);
 }
 
 /* 看板娘画布 */
 #live2d {
-  cursor: grab;
+  cursor: pointer;
 }
 
-/* 工具栏位置调整 */
+/* 工具栏：收起时隐藏，展开时显示 */
 #waifu-tool {
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-#waifu:hover #waifu-tool {
+#waifu.waifu-active #waifu-tool {
   opacity: 1;
 }
 
 /* 对话气泡 */
 #waifu-tips {
-  font-size: 12px !important;
-  max-width: 200px !important;
+  font-size: 11px !important;
+  max-width: 180px !important;
   background: rgba(0, 0, 0, 0.8) !important;
   border-radius: 10px !important;
-  padding: 8px 12px !important;
+  padding: 6px 10px !important;
 }
 
 /* 移动端隐藏看板娘 */
