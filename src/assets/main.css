@@ -554,17 +554,15 @@ a.router-link-active.nav-item {
  * ======================================== */
 #waifu {
   position: fixed !important;
-  right: 0 !important;
-  /* 改为右侧 */
+  right: -30px !important;
+  /* 更贴近右侧边缘 */
   left: auto !important;
-  /* 取消左侧定位 */
-  bottom: 70px !important;
-  /* 避免遮挡底部 Dock 工具栏 */
+  bottom: 60px !important;
+  /* 在 Dock 上方 */
   z-index: 50;
-  transform: scale(0.7);
-  /* 缩小到70% */
+  transform: scale(0.5);
+  /* 缩小到50% */
   transform-origin: right bottom;
-  /* 改为从右下角缩放 */
   pointer-events: auto;
 }
 
